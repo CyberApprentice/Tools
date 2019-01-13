@@ -1,0 +1,197 @@
+Binwalk: 4/16/18
+*extracts data from a file
+	- binwalk ~/Downloads/ISCS-3523\ Final\ Project.pcap 
+
+	Output:
+		DECIMAL       HEXADECIMAL     DESCRIPTION
+	--------------------------------------------------------------------------------
+	162920        0x27C68         Microsoft executable, portable (PE)
+	225824        0x37220         Microsoft executable, portable (PE)
+	576348        0x8CB5C         Copyright string: "Copyright (C) 1998, Thomas G. Lane"
+	580502        0x8DB96         CRC32 polynomial table, little endian
+	581541        0x8DFA5         Copyright string: "Copyright 1995-2002 Jean-loup Gailly "
+	13011263      0xC6893F        Microsoft executable, portable (PE)
+	13099835      0xC7E33B        PARity archive data - file number 7530
+	13216818      0xC9AC32        LZMA compressed data, properties: 0xB8, dictionary size: 131072 bytes, uncompressed size: 2573 bytes
+	13223119      0xC9C4CF        Microsoft executable, portable (PE)
+	13310255      0xCB192F        Copyright string: "Copyright (C) 1998-2005 David Johnson"
+	13311169      0xCB1CC1        Copyright string: "Copyright (C) 1989, 1991 Free Software Foundation, Inc."
+	13313158      0xCB2486        Copyright string: "copyright the software, and"
+	13314371      0xCB2943        Copyright string: "copyright holder saying it may be distributed"
+	13314612      0xCB2A34        Copyright string: "copyright law:"
+	13315556      0xCB2DE4        Copyright string: "copyright notice and disclaimer of warranty; keep intact all the"
+	13316822      0xCB32D6        Copyright string: "copyright notice and a"
+	13324502      0xCB50D6        Copyright string: "copyrighted interfaces, the"
+	13324609      0xCB5141        Copyright string: "copyright holder who places the Program under this License"
+	13325827      0xCB5603        Copyright string: "copyrighted by the Free"
+	13328485      0xCB6065        Microsoft executable, portable (PE)
+	13336383      0xCB7F3F        Microsoft executable, portable (PE)
+	14398613      0xDBB495        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/cygheap.cc
+	14457349      0xDC9A05        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/dlfcn.cc
+	14461125      0xDCA8C5        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/environ.cc
+	14470939      0xDCCF1B        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler.cc
+	14479837      0xDCF1DD        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler_disk_file.cc
+	14488779      0xDD14CB        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler_proc.cc
+	14491475      0xDD1F53        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler_process.cc
+	14493089      0xDD25A1        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler_random.cc
+	14503921      0xDD4FF1        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/fhandler_tty.cc
+	14511821      0xDD6ECD        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/hookapi.cc
+	14524241      0xDD9F51        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/path.cc
+	14537795      0xDDD443        Unix path: /netrel/src/cygwin-1.5.18-1/winsup/cygwin/sec_acl.cc
+	... continues
+----------------------------------------------------------------------------------------------------------------------------------------------
+   
+ bulk-extractor: 4/16/18
+*extracts data and puts it into a folder
+	- bulk_extractor ~/Desktop/ISCS-3523\ Final\ Project.pcap -o ./bulk_extractor
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Capstone: 4/16/18
+*not available in kali yet?
+https://tools.kali.org/forensics/capstone
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    chntpw: 4/16/18
+*pulls data from SAM file
+*don't have a SAM file to play with yet
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Cuckoo: 4/16/18
+*not available in kali yet?
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    dc3dd: 4/16/18
+*not usable on pcaps
+*not sure what it does since I only used it on a pcap
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    ddrescue: 4/16/18
+* copies data from one file (or block device) to another
+*didn't need this yet so didn't test it
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    DFF: 4/16/18
+bash: dff: command not found
+https://tools.kali.org/forensics/dff
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    diStorm3: 4/16/18
+*have to use through python interpreter I think
+https://tools.kali.org/reverse-engineering/distorm3
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Dumpzilla: 4/16/18
+*used for reading browser data
+*didn't need at time so didn't play with yet
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    extundelete: 4/16/18
+*something to do with reading a filesystem image
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Foremost: 4/16/18
+*can be used on pcaps
+*creates a folder in current directory named "output" by default. -o to rename
+	- ran foremost ~/Desktop
+
+note: 4/19/18
+*use tcpflow first to read the pcap (this reassembles the packets to allow you to read the extracted files) and then use foremost
+ex:
+	1. mkdir ~/Desktop/tcpflow
+	2. tcpflow -r ~/Desktop/ISCS-3523\ Final\ Project.pcap  -o ~/Desktop/tcpflow/
+	3. cat ~/Desktop/tcpflow/* > ~/Desktop/tcpflow/dump.txt
+	4. foremost -i ~/Desktop/tcpflow/dump.txt -o ~/Desktop/secondattempt
+	
+	-ran foremost -t pdf -i /dev/sda1 -o ~/Desktop/saved
+		- this scans the entire harddrive and searched for deleted pdf files. Takes HOURS
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Galleta
+*think it has something to do with reading cookies
+*not intended for pcaps
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Guymager
+*linux GUI forensic imaging tool of local filesystems
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    iPhone Backup Analyzer
+bash: iphone-backup-analyzer: command not found
+https://tools.kali.org/forensics/iphone-backup-analyzer
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    p0f
+*can use to analyze pcap files
+	*didn't analyze ALL packets on the tested pcap
+*sniffer
+	- p0f -r ./ISCS-3523\ Final\ Project.pcap
+	
+	Output: 
+	[+] Closed 1 file descriptor.
+	[+] Loaded 322 signatures from '/etc/p0f/p0f.fp'.
+	[+] Will read pcap data from file './ISCS-3523 Final Project.pcap'.
+	[+] Default packet filtering configured [+VLAN].
+	[+] Processing capture data.
+
+	.-[ 192.168.5.99/59952 -> 192.168.5.100/3389 (syn) ]-
+	|
+	| client   = 192.168.5.99/59952
+	| app      = NMap SYN scan
+	| dist     = <= 6
+	| params   = random_ttl
+	| raw_sig  = 4:58+6:0:1460:3072,0:mss::0
+	|
+	`----
+
+	.-[ 192.168.5.99/59952 -> 192.168.5.100/3306 (syn) ]-
+	|
+	| client   = 192.168.5.99/59952
+	| app      = NMap SYN scan
+	| dist     = <= 20
+	| params   = random_ttl
+	| raw_sig  = 4:44+20:0:1460:1024,0:mss::0
+	|
+	`----
+	...continued
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    pdf-parser: 4/16/18
+*didn't need
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    pdfid: 4/16/18
+*tests pdf file
+*didn't need
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    pdgmail: 4/18/18
+*think this is something related to mail files only
+*can't use with pcap
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    peepdf: 4/18/18
+*something to do with pdf files
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    RegRipper: 4/18/18
+*requires wine to be installed
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Volatility: 4/18/18
+*memory forensics analysis 
+*can't use on pcap
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    Xplico: 4/18/18
+*not installed
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+

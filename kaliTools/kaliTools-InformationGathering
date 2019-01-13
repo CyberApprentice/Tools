@@ -1,0 +1,1590 @@
+0trace: 4/14/18
+*No clue what this does and -h doesn't help, just shows syntax
+*target IP is metasploitable
+	- 0trace.sh eth0 172.16.22.16
+*from target*
+	- ping 172.16.23.0
+	Output:
+	 0trace v0.01 PoC by <lcamtuf@coredump.cx>
+	 [+] Waiting for traffic from target on eth0...
+	 ^C
+	 [+] Traffic acquired, waiting for a gap...
+	 /usr/bin/0trace.sh: line 69: printf: 0x: invalid hex number
+	 /usr/bin/0trace.sh: line 70: printf: 0x: invalid hex number
+	 [+] Target acquired: : -> : (0/0).
+	 [+] Setting up a sniffer...
+	 [+] Sending probes...
+	 Usage: sendprobe src_ip dst_ip sport dport seq ack
+	
+	 TRACE RESULTS
+	 -------------
+	 Probe rejected by target.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+accccheck: 4/14/18
+*simply checks if the account and password will be successful. If no password specified then it'll use "BLANK" (same with account if not specified).
+*target IP is metasploitable
+	- acccheck -t 172.16.22.16 -u msfadmin -p msfadmin -v
+
+	Output:
+	  Host:172.16.22.16, Username:'msfadmin', Password:'msfadmin'
+
+          SUCCESS.... connected to 172.16.22.16 with username:'msfadmin' and password:'msfadmin'
+
+	  End of Scan
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+automater: 4/14/18
+*doesn't look useful for me
+*seems to grab information about the target address (IP address, url, file, or hash)
+	- automater utsa.edu
+
+	Output:
+	 automater utsa.edu
+	____________________     Results found for: utsa.edu     ____________________
+	No results found in the FNet URL
+	No results found in the Un Redirect
+	[+] IP from URLVoid: 129.115.102.107
+	[+] Blacklist from URLVoid: No results found
+	[+] Domain Age from URLVoid: 1990-12-14 (28 years ago)
+	[+] Geo Coordinates from URLVoid: 29.5698 / -98.6161
+	[+] Country from URLVoid:  (US) United States
+	[+] pDNS data from VirusTotal: ('2018-04-14', '129.115.120.39')
+	[+] pDNS data from VirusTotal: ('2013-10-03', '129.115.102.107')
+	[+] pDNS malicious URLs from VirusTotal: No results found
+	[+] Malc0de Date: No results found
+	[+] Malc0de IP: No results found
+	[+] Malc0de Country: No results found
+	[+] Malc0de ASN: No results found
+	[+] Malc0de ASN Name: No results found
+	[+] Malc0de MD5: No results found
+	No results found in the THIP
+	[+] McAfee Web Risk: No results found
+	[+] McAfee Web Category: No results found
+	[+] McAfee Last Seen: No results found
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+braa: 4/14/18
+*no clue what this does
+*something to do with querying target
+*targeting metasplotiable
+
+	- braa public@172.16.22.16:.1.3.6.* -v
+	
+	output:
+	1 queries made, 0 queries acknowledged.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+cdpsnarf: 4/14/18
+*sniffer that only looks for CDP packets (whatever that is)
+
+	- cdpsnarf -i eth0 -w ~/Desktop/cdpsnarf.pcap
+
+	Output:
+	 Reading packets from eth0.
+	 Waiting for a CDP packet...
+	
+	- cdpsnarf -r  ~/Desktop/cdpsnarf.pcap
+
+	output:
+	 Couldn't open file /root/Desktop/cdpsnarf.pcap: truncated dump file; tried to read 4 file header bytes, only got 0
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dmitry: 4/14/18
+*multiple functions: TCP port scan, search for email addresses, subdomains, whois lookup, and pull from netcraft.com
+*the output option (-o) works weird so just output it regulary. Example below
+
+	- dmitry -i 172.16.22.16 -n 172.16.22.16 -s -e -p 172.16.22.16  && dmitry -b 172.16.22.16
+
+	output:
+	Deepmagic Information Gathering Tool
+	"There be some deep magic going on"
+	
+	ERROR: Unable to locate Host Name for 172.16.22.16
+	Continuing with limited modules
+	HostIP:172.16.22.16
+	HostName:
+	
+	Gathered Inet-whois information for 172.16.22.16
+	---------------------------------
+	
+	
+	inetnum:        172.16.0.0 - 172.31.255.255
+	netname:        IETF-RESERVED-ADDRESS-BLOCK
+	descr:          IPv4 address block reserved by the IETF
+	remarks:        ------------------------------------------------------
+	remarks:
+	remarks:        This address block is reserved by the IETF
+	remarks:
+	remarks:        You can find more information on the IANA registry page:
+	remarks:        http://www.iana.org/assignments/ipv4-address-space
+	remarks:
+	remarks:        ------------------------------------------------------
+	country:        EU # Country is really world wide
+	org:            ORG-IANA1-RIPE
+	admin-c:        IANA1-RIPE
+	tech-c:         IANA1-RIPE
+	status:         ALLOCATED UNSPECIFIED
+	mnt-by:         RIPE-NCC-HM-MNT
+	created:        2014-11-07T14:27:58Z
+	last-modified:  2014-11-07T14:38:18Z
+	source:         RIPE
+	
+	organisation:   ORG-IANA1-RIPE
+	org-name:       Internet Assigned Numbers Authority
+	org-type:       IANA
+	address:        see http://www.iana.org
+	remarks:        The IANA allocates IP addresses and AS number blocks to RIRs
+	remarks:        see http://www.iana.org/numbers
+	admin-c:        IANA1-RIPE
+	tech-c:         IANA1-RIPE
+	mnt-ref:        RIPE-NCC-HM-MNT
+	mnt-by:         RIPE-NCC-HM-MNT
+	created:        2004-04-17T09:57:29Z
+	last-modified:  2013-07-22T12:03:42Z
+	source:         RIPE # Filtered
+	
+	role:           Internet Assigned Numbers Authority
+	address:        see http://www.iana.org.
+	admin-c:        IANA1-RIPE
+	tech-c:         IANA1-RIPE
+	nic-hdl:        IANA1-RIPE
+	remarks:        For more information on IANA services
+	remarks:        go to IANA web site at http://www.iana.org.
+	mnt-by:         RIPE-NCC-MNT
+	created:        1970-01-01T00:00:00Z
+	last-modified:  2001-09-22T09:31:27Z
+	source:         RIPE # Filtered
+	
+	% This query was served by the RIPE Database Query Service version 1.91.1 (ANGUS)
+	
+	
+	
+	Gathered TCP Port information for 172.16.22.16
+	---------------------------------
+	
+	 Port		State
+	
+	21/tcp		open
+	22/tcp		open
+	23/tcp		open
+	25/tcp		open
+	53/tcp		open
+	80/tcp		open
+	111/tcp		open
+	139/tcp		open
+	
+	Portscan Finished: Scanned 150 ports, 141 ports were in state closed
+	
+	
+	All scans completed, exiting
+	Deepmagic Information Gathering Tool
+	"There be some deep magic going on"
+	
+	Error: No '-p' flag passed with TTL, assuming -p
+	ERROR: Unable to locate Host Name for 172.16.22.16
+	Continuing with limited modules
+	HostIP:172.16.22.16
+	HostName:
+	
+	Gathered TCP Port information for 172.16.22.16
+	---------------------------------
+	
+	 Port		State
+	
+	21/tcp		open
+	>> 220 (vsFTPd 2.3.4)
+	
+	22/tcp		open
+	>> SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+	
+	23/tcp		open
+	>> ���� ��#��'
+	25/tcp		open
+	>> 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)
+	
+	53/tcp		open
+	
+	Portscan Finished: Scanned 150 ports, 144 ports were in state closed
+	
+	
+	All scans completed, exiting
+
+	- dmitry -i 172.16.22.16 -n 172.16.22.16 -s -e -p 172.16.22.16 > ~/Desktop/dmitry && dmitry -b >> ~/Desktop/dmitry
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnmap_client & dnmap_server: 4/14/18
+*didn't really get these to work but this is probably beacuse I didn't use an actual server (system that had server.pem file)
+
+(1) create a txt file with nmap commands (ex: nmap -sS 172.16.22.16) <- metasploitable
+
+	- dnmap_server -f ~/Desktop/nmap_commands.txt
+(2) open a seperate terminal
+	- dnmap_client -s 172.16.22.0 <- me
+	OR
+	- dnmap_client -s 127.0.0.1 <- me
+
+*got errors and didn't work correctly. Here is a guide that shows it worked properly: http://cyborg.ztrela.com/dnmap-client-and-dnmap-server.php/
+*seems to be a bot/botnet setup tool
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnsenum: 4/14/14
+*similar to whois
+	- dnsenum google.com
+	Output:
+	-----   google.com   -----
+	
+	
+	Host's addresses:
+	__________________
+	
+	google.com.                              144      IN    A        216.58.194.142
+	
+	
+	Name Servers:
+	______________
+	
+	ns3.google.com.                          318663   IN    A        216.239.36.10
+	ns2.google.com.                          263080   IN    A        216.239.34.10
+	ns1.google.com.                          318663   IN    A        216.239.32.10
+	ns4.google.com.                          318663   IN    A        216.239.38.10
+	
+	
+	Mail (MX) Servers:
+	___________________
+	
+	alt3.aspmx.l.google.com.                 293      IN    A        74.125.141.27
+	alt4.aspmx.l.google.com.                 293      IN    A        64.233.186.27
+	alt1.aspmx.l.google.com.                 293      IN    A        64.233.176.27
+	aspmx.l.google.com.                      293      IN    A        108.177.10.27
+	alt2.aspmx.l.google.com.                 293      IN    A        209.85.144.27
+	
+	
+	Trying Zone Transfers and getting Bind Versions:
+	_________________________________________________
+	
+	
+	Trying Zone Transfer for google.com on ns4.google.com ... 
+	AXFR record query failed: corrupt packet
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnsmap: 4/14/18
+*maps out target's (sub)domains with associated public IP addresses
+
+	- dnsmap gogoanime.io
+	dnsmap 0.30 - DNS Network Mapper by pagvac (gnucitizen.org)
+
+	[+] searching (sub)domains for gogoanime.io using built-in wordlist
+	[+] using maximum random delay of 10 millisecond(s) between requests
+	
+	ww1.gogoanime.io
+	IP address #1: 192.162.136.49
+	
+	ww2.gogoanime.io
+	IP address #1: 192.162.136.49
+	
+	ww3.gogoanime.io
+	IP address #1: 192.162.136.49
+	
+	www.gogoanime.io
+	IP address #1: 192.162.136.30
+	
+	[+] 4 (sub)domains and 4 IP address(es) found
+	[+] completion time: 107 second(s)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnsrecon: 4/14/18
+*more website lookup stuff I don't understand
+
+	- dnsrecon -d google.com
+	
+	Output:
+	[*] Performing General Enumeration of Domain: google.com
+	[-] DNSSEC is not configured for google.com
+	[*] 	 SOA ns1.google.com 216.239.32.10
+	[*] 	 NS ns3.google.com 216.239.36.10
+	[*] 	 NS ns3.google.com 2001:4860:4802:36::a
+	[*] 	 NS ns2.google.com 216.239.34.10
+	[*] 	 NS ns2.google.com 2001:4860:4802:34::a
+	[*] 	 NS ns1.google.com 216.239.32.10
+	[*] 	 NS ns1.google.com 2001:4860:4802:32::a
+	[*] 	 NS ns4.google.com 216.239.38.10
+	[*] 	 NS ns4.google.com 2001:4860:4802:38::a
+	[*] 	 MX alt1.aspmx.l.google.com 64.233.176.26
+	[*] 	 MX aspmx.l.google.com 64.233.169.26
+	[*] 	 MX alt2.aspmx.l.google.com 209.85.144.26
+	[*] 	 MX alt3.aspmx.l.google.com 74.125.141.26
+	[*] 	 MX alt4.aspmx.l.google.com 64.233.186.26
+	[*] 	 MX alt1.aspmx.l.google.com 2607:f8b0:4002:c05::1b
+	[*] 	 MX aspmx.l.google.com 2607:f8b0:4003:c14::1a
+	[*] 	 MX alt2.aspmx.l.google.com 2607:f8b0:400d:c0e::1a
+	[*] 	 MX alt3.aspmx.l.google.com 2607:f8b0:400c:c06::1b
+	[*] 	 MX alt4.aspmx.l.google.com 2800:3f0:4003:c00::1b
+	[*] 	 A google.com 216.58.194.142
+	[*] 	 AAAA google.com 2607:f8b0:4000:80d::200e
+	[*] 	 TXT google.com docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e
+	[*] 	 TXT google.com v=spf1 include:_spf.google.com ~all
+	[*] Enumerating SRV Records
+	[*] 	 SRV _ldap._tcp.google.com ldap.google.com 216.239.32.58 389 0
+	[*] 	 SRV _caldav._tcp.google.com calendar.google.com 216.58.194.142 80 0
+	[*] 	 SRV _caldav._tcp.google.com calendar.google.com 2607:f8b0:4000:80d::200e 80 0
+	[*] 	 SRV _caldavs._tcp.google.com calendar.google.com 216.58.194.142 443 0
+	[*] 	 SRV _caldavs._tcp.google.com calendar.google.com 2607:f8b0:4000:80d::200e 443 0
+	[*] 	 SRV _xmpp-server._tcp.google.com alt4.xmpp-server.l.google.com 64.233.186.125 5269 0
+	[*] 	 SRV _xmpp-server._tcp.google.com xmpp-server.l.google.com 64.233.168.125 5269 0
+	[*] 	 SRV _xmpp-server._tcp.google.com alt3.xmpp-server.l.google.com 173.194.218.125 5269 0
+	[*] 	 SRV _xmpp-server._tcp.google.com alt1.xmpp-server.l.google.com 64.233.176.125 5269 0
+	[*] 	 SRV _xmpp-server._tcp.google.com alt2.xmpp-server.l.google.com 209.85.144.125 5269 0
+	[*] 	 SRV _jabber._tcp.google.com alt3.xmpp-server.l.google.com 173.194.218.125 5269 0
+	[*] 	 SRV _jabber._tcp.google.com alt2.xmpp-server.l.google.com 209.85.144.125 5269 0
+	[*] 	 SRV _jabber._tcp.google.com xmpp-server.l.google.com 64.233.168.125 5269 0
+	[*] 	 SRV _jabber._tcp.google.com alt4.xmpp-server.l.google.com 64.233.186.125 5269 0
+	[*] 	 SRV _jabber._tcp.google.com alt1.xmpp-server.l.google.com 64.233.176.125 5269 0
+	[*] 	 SRV _carddavs._tcp.google.com google.com 216.58.194.142 443 0
+	[*] 	 SRV _carddavs._tcp.google.com google.com 2607:f8b0:4000:80d::200e 443 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt3.xmpp.l.google.com 173.194.218.125 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt3.xmpp.l.google.com 2607:f8b0:400c:c14::7d 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt2.xmpp.l.google.com 209.85.144.125 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt2.xmpp.l.google.com 2607:f8b0:400d:c0e::7d 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt4.xmpp.l.google.com 64.233.186.125 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt4.xmpp.l.google.com 2800:3f0:4003:c00::7d 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com xmpp.l.google.com 64.233.168.125 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com xmpp.l.google.com 2607:f8b0:4003:c07::7d 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt1.xmpp.l.google.com 64.233.176.125 5222 0
+	[*] 	 SRV _jabber-client._tcp.google.com alt1.xmpp.l.google.com 2607:f8b0:4002:c05::7d 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt4.xmpp.l.google.com 64.233.186.125 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt4.xmpp.l.google.com 2800:3f0:4003:c00::7d 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt2.xmpp.l.google.com 209.85.144.125 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt2.xmpp.l.google.com 2607:f8b0:400d:c0e::7d 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com xmpp.l.google.com 64.233.168.125 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com xmpp.l.google.com 2607:f8b0:4003:c07::7d 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt1.xmpp.l.google.com 64.233.176.125 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt1.xmpp.l.google.com 2607:f8b0:4002:c05::7d 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt3.xmpp.l.google.com 173.194.218.125 5222 0
+	[*] 	 SRV _xmpp-client._tcp.google.com alt3.xmpp.l.google.com 2607:f8b0:400c:c14::7d 5222 0
+	[+] 37 Records Found
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnstracer: 4/14/18
+*more web analysis I don't understand
+*I get more interaction when I spoof the src IP address (-s option)
+
+	- dnstracer google.com -v
+
+	Output:
+	Tracing to google.com[a] via 172.16.22.1, maximum of 3 retries
+	172.16.22.1 (172.16.22.1) IP HEADER
+	- Destination address:  172.16.22.1
+	DNS HEADER (send)
+	- Identifier:           0x0B4E
+	- Flags:                0x00 (Q )
+	- Opcode:               0 (Standard query)
+	- Return code:          0 (No error)
+	- Number questions:     1
+	- Number answer RR:     0
+	- Number authority RR:  0
+	- Number additional RR: 0
+	QUESTIONS (send)
+	- Queryname:            (6)google(3)com
+	- Type:                 1 (A)
+	- Class:                1 (Internet)
+	DNS HEADER (recv)
+	- Identifier:           0x0B4E
+	- Flags:                0x8005 (R )
+	- Opcode:               0 (Standard query)
+	- Return code:          5 (Refused)
+	- Number questions:     0
+	- Number answer RR:     0
+	- Number authority RR:  0
+	- Number additional RR: 0
+	QUESTIONS (recv)
+	- Queryname:            (1).
+	- Type:                 0 (unknown)
+	- Class:                0 (unknown)
+
+
+	- dnstracer -s 172.16.22.16 google.com -v
+
+	output:
+	Tracing to google.com[a] via 172.16.22.16, maximum of 3 retries
+	172.16.22.16 (172.16.22.16) IP HEADER
+	- Destination address:  172.16.22.16
+	DNS HEADER (send)
+	- Identifier:           0x462B
+	- Flags:                0x00 (Q )
+	- Opcode:               0 (Standard query)
+	- Return code:          0 (No error)
+	- Number questions:     1
+	- Number answer RR:     0
+	- Number authority RR:  0
+	- Number additional RR: 0
+	QUESTIONS (send)
+	- Queryname:            (6)google(3)com
+	- Type:                 1 (A)
+	- Class:                1 (Internet)
+	DNS HEADER (recv)
+	- Identifier:           0x462B
+	- Flags:                0x8080 (R RA )
+	- Opcode:               0 (Standard query)
+	- Return code:          0 (No error)
+	- Number questions:     1
+	- Number answer RR:     0
+	- Number authority RR:  13
+	- Number additional RR: 0
+	QUESTIONS (recv)
+	- Queryname:            (6)google(3)com
+	- Type:                 1 (A)
+	- Class:                1 (Internet)
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)D(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)M(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)L(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)J(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)G(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)E(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)C(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)K(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)B(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)H(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)F(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      4
+	- Resource data:        (1)I(12)ROOT-SERVERS(3)NET
+	AUTHORITY RR
+	- Domainname:           (1).
+	- Type:                 2 (NS)
+	- Class:                1 (Internet)
+	- TTL:                  3600000 (5w6d16h)
+	- Resource length:      20
+	- Resource data:        (1)A(12)ROOT-SERVERS(3)NET
+	Refers backwards
+
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dnswalk: 4/14/14
+*not sure what this tells me since every site I tried it on (facebook, google, and googanime) failed
+*make sure domain ends with a period (.)
+	- dnswalk google.com.
+	
+	Output:
+	Checking google.
+	Getting zone transfer of google. from ns-tld1.charlestonroadregistry.com...failed
+	FAIL: Zone transfer of google. from ns-tld1.charlestonroadregistry.com failed: REFUSED
+	Getting zone transfer of google. from ns-tld2.charlestonroadregistry.com...failed
+	FAIL: Zone transfer of google. from ns-tld2.charlestonroadregistry.com failed: REFUSED
+	Getting zone transfer of google. from ns-tld3.charlestonroadregistry.com...failed
+	FAIL: Zone transfer of google. from ns-tld3.charlestonroadregistry.com failed: REFUSED
+	Getting zone transfer of google. from ns-tld4.charlestonroadregistry.com...failed
+	FAIL: Zone transfer of google. from ns-tld4.charlestonroadregistry.com failed: REFUSED
+	Getting zone transfer of google. from ns-tld5.charlestonroadregistry.com...failed
+	FAIL: Zone transfer of google. from ns-tld5.charlestonroadregistry.com failed: REFUSED
+	BAD: All zone transfer attempts of google. failed!
+	5 failures, 0 warnings, 1 errors.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+DotDotPwn: 4/27/18
+*fuzzer to discover traversal directory vulnerabilities
+
+	command: dotdotpwn.pl -m http -h 172.16.22.16 -M GET
+
+Output:
+
+[*] HTTP Status: 404 | Testing Path: http://172.16.22.16:80/%c0%2e%c0%2e%e0%80%afetc%e0%80%afissue
+[*] HTTP Status: 404 | Testing Path: http://172.16.22.16:80/%c0%2e%c0%2e%e0%80%af%c0%2e%c0%2e%e0%80%afetc%e0%80%afpasswd
+[*] HTTP Status: 404 | Testing Path: http://172.16.22.16:80/%c0%2e%c0%2e%e0%80%af%c0%2e%c0%2e%e0%80%afetc%e0%80%afissue
+[*] HTTP Status: 404 | Testing Path: http://172.16.22.16:80/%c0%2e%c0%2e%e0%80%af%c0%2e%c0%2e%e0%80%af%c0%2e%c0%2e%e0%80%afetc%e0%80%afpasswd
+^C
+[+] Total Traversals found: 1080
+[-] Fuzz testing aborted
+[+] Report saved: Reports/172.16.22.16_04-27-2018_18-42.txt
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+enum4linux: 4/27/18
+*gather information from a system]
+
+	command: enum4linux -a 172.16.22.16
+		Output:
+ ========================== 
+|    Target Information    |
+ ========================== 
+Target ........... 172.16.22.16
+RID Range ........ 500-550,1000-1050
+Username ......... ''
+Password ......... ''
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+
+ ==================================================== 
+|    Enumerating Workgroup/Domain on 172.16.22.16    |
+ ==================================================== 
+[+] Got domain/workgroup name: WORKGROUP
+
+ ============================================ 
+|    Nbtstat Information for 172.16.22.16    |
+ ============================================ 
+Looking up status of 172.16.22.16
+	METASPLOITABLE  <00> -         B <ACTIVE>  Workstation Service
+	METASPLOITABLE  <03> -         B <ACTIVE>  Messenger Service
+	METASPLOITABLE  <20> -         B <ACTIVE>  File Server Service
+	..__MSBROWSE__. <01> - <GROUP> B <ACTIVE>  Master Browser
+	WORKGROUP       <00> - <GROUP> B <ACTIVE>  Domain/Workgroup Name
+	WORKGROUP       <1d> -         B <ACTIVE>  Master Browser
+	WORKGROUP       <1e> - <GROUP> B <ACTIVE>  Browser Service Elections
+
+	MAC Address = 00-00-00-00-00-00
+
+ ===================================== 
+|    Session Check on 172.16.22.16    |
+ ===================================== 
+[+] Server 172.16.22.16 allows sessions using username '', password ''
+
+ =========================================== 
+|    Getting domain SID for 172.16.22.16    |
+ =========================================== 
+Domain Name: WORKGROUP
+Domain Sid: (NULL SID)
+[+] Can't determine if host is part of domain or part of a workgroup
+
+ ====================================== 
+|    OS information on 172.16.22.16    |
+ ====================================== 
+Use of uninitialized value $os_info in concatenation (.) or string at ./enum4linux.pl line 464.
+[+] Got OS info for 172.16.22.16 from smbclient: 
+[+] Got OS info for 172.16.22.16 from srvinfo:
+	METASPLOITABLE Wk Sv PrQ Unx NT SNT metasploitable server (Samba 3.0.20-Debian)
+	platform_id     :	500
+	os version      :	4.9
+	server type     :	0x9a03
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+enumIAX: 4/27/18
+*usernmae brute-force enumerator
+
+	command: enumiax 172.16.22.16
+		Output:
+		enumIAX 0.4a
+		Dustin D. Trammell <dtrammell@tippingpoint.com>
+
+		read: Connection refused
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+EyeWitness: 4/27/18
+bash: eyewitness: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Faraday: 4/27/18
+GUI pentesting IDE - sets up another terminal within the GUI that makes pentesting easier w/ a web interface
+Has a lot of tools and supports native commands.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Fierce: 4/27/18
+*scanner different from nmap that locates likely targets both inside and outside a corporate network. 
+*requires a dns server
+
+*example shows incorrect usage on an IP:
+	command: fierce -dns 172.16.22.16
+
+Output:
+Trying zone transfer first...
+
+Unsuccessful in zone transfer (it was worth a shot)
+Okay, trying the good old fashioned way... brute force
+
+Checking for wildcard DNS...
+Nope. Good.
+Now performing 2280 test(s)...
+
+Subnets found (may want to probe here using nmap or unicornscan):
+
+Done with Fierce scan: http://ha.ckers.org/fierce/
+Found 0 entries.
+
+Have a nice day.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Firewalk: 4/27/18
+bash: firewalk: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fragroute & fragtest: 4/27/18
+*fragroute intercepts, modifies, and rewrites egress traffic destined for a specified host
+*test NIDS
+*have two terminals up (t1, t2)
+
+
+	Comand:	(t1)	fragroute 172.16.22.16
+		(t2)	fragtest ip-tracert frag-new 192.168.1.123
+
+Output t1:
+172.16.22.98 > 172.16.22.16: (frag 1657:8@24)
+172.16.22.98 > 172.16.22.16: (frag 1657:8@24) [delay 0.001 ms]
+172.16.22.98 > 172.16.22.16: icmp: type 8 code 0 (frag 1657:24@0+)
+172.16.22.98 > 172.16.22.16: icmp: type 51 code 109 (frag 1657:24@0+) [delay 0.001 ms]
+172.16.22.98 > 172.16.22.16: icmp: type 8 code 0 (frag 43782:24@0+) [ttl 1]
+172.16.22.98 > 172.16.22.16: (frag 43782:8@24) [ttl 1]
+172.16.22.98 > 172.16.22.16: icmp: type 48 code 68 (frag 43782:24@0+) [ttl 1] [delay 0.001 ms]
+172.16.22.98 > 172.16.22.16: (frag 43782:8@24) [ttl 1] [delay 0.001 ms]
+172.16.22.98 > 172.16.22.16: icmp: type 8 code 0 (frag 50035:8@0+)
+172.16.22.98 > 172.16.22.16: (frag 50035:8@16+)
+172.16.22.98 > 172.16.22.16: (frag 50035:16@8+)
+172.16.22.98 > 172.16.22.16: (frag 50035:8@24)
+
+
+Output t2:
+ip-tracert: 172.16.22.16, 1 hops max
+ 1  172.16.22.16 (64)
+frag-new: 12.286 ms
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fragrouter: 4/27/18
+*NIDS evasion toolkit
+*used to coverup your malicious traffic I think
+
+	Ex: fragrouter -i eth0 -F1
+Output: fragrouter: frag-1: ordered 8-byte IP fragments
+
+*didn't actually do this since it puts stuff on the wire and i'm in an apartment complex
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ghost Phisher: 4/27/18
+*GUI
+similar to burp but less tabs
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+GoLismero: 4/27/18
+*scaner, dns security audit, 
+*meant for domains not hosts
+
+	Command: golismero profile 172.16.22.16
+Output:
+[*] GoLismero: Current stage: Reporting
+
+--= Report =--
+
+-# Summary #- 
+
+Audit started:   2018-04-27 22:29:07.979901 UTC
+Audit ended:     2018-04-27 22:37:15.515824 UTC
+Execution time:  0 days, 0 hours, 8 minutes and 7 seconds
+
+Scanned hosts:   2
+Vulnerabilities: 0
+
+-# Vulnerabilities #- 
+
+No vulnerabilities found.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+goofile: 4/27/18
+*searches through a domain for certain file types
+
+bash: goofile: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+hping3: 4/27/18
+*tcp/ip packet assembler/analyzer
+*more than just sending icmp echo requests like ping
+	Command: hping3 172.16.22.16
+Output:
+HPING 172.16.22.16 (eth0 172.16.22.16): NO FLAGS are set, 40 headers + 0 data bytes
+^C
+--- 172.16.22.16 hping statistic ---
+1 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ident-user-enum: 4/27/18
+*query the ident service (113/TCP) in order to determine the owner of the process listening on each TCP port of a target system
+
+bash: ident-user-enum: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+InSpy: 4/27/18
+
+bash: inspy: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+InTrace: 4/27/18
+*used for domains not IPs
+*piggybacks on existing tcp connections to bypass controls (firewall, ids)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+iSMTP: 4/27/18
+bash: ismtp: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+lbd: 4/27/18
+*detects if a domain is using a load balancer
+*use on domains not IPs unless
+
+	Command: lbd google.com
+
+Output:
+lbd - load balancing detector 0.4 - Checks if a given domain uses load-balancing.
+                                    Written by Stefan Behte (http://ge.mine.nu)
+                                    Proof-of-concept! Might give false positives.
+
+Checking for DNS-Loadbalancing: NOT FOUND
+Checking for HTTP-Loadbalancing [Server]: 
+ gws
+ NOT FOUND
+
+Checking for HTTP-Loadbalancing [Date]: 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:23, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:24, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:25, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:26, 04:10:27, 04:10:27, 04:10:27, 04:10:27, 04:10:27, NOT FOUND
+
+Checking for HTTP-Loadbalancing [Diff]: FOUND
+< Expires: Mon, 28 May 2018 04:10:27 GMT
+> Expires: Mon, 28 May 2018 04:10:28 GMT
+
+google.com does Load-balancing. Found via Methods: HTTP[Diff]
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Maltego Teeth: 4/27/18
+*GUI 
+*no clue what this thing does
+*creates a hidden directory in cwd, ".maltego"
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+masscan: 4/27/18
+*fastest internet port scanner
+
+
+	Command: masscan --port 0-65535 172.16.22.16
+Output:
+Starting masscan 1.0.3 (http://bit.ly/14GZzcT) at 2018-04-28 04:35:58 GMT
+ -- forced options: -sS -Pn -n --randomize-hosts -v --send-eth
+Initiating SYN Stealth Scan
+Scanning 1 hosts [65536 ports/host]
+Discovered open port 512/tcp on 172.16.22.16                                   
+Discovered open port 21/tcp on 172.16.22.16                                    
+Discovered open port 5432/tcp on 172.16.22.16                                  
+Discovered open port 22/tcp on 172.16.22.16                                    
+Discovered open port 8180/tcp on 172.16.22.16                                  
+Discovered open port 58422/tcp on 172.16.22.16                                 
+Discovered open port 23/tcp on 172.16.22.16                                    
+Discovered open port 2049/tcp on 172.16.22.16                                  
+Discovered open port 6667/tcp on 172.16.22.16                                  
+Discovered open port 514/tcp on 172.16.22.16                                   
+Discovered open port 8009/tcp on 172.16.22.16                                  
+Discovered open port 80/tcp on 172.16.22.16                                    
+Discovered open port 513/tcp on 172.16.22.16                                   
+Discovered open port 51860/tcp on 172.16.22.16                                 
+Discovered open port 1524/tcp on 172.16.22.16                                  
+Discovered open port 52475/tcp on 172.16.22.16                                 
+Discovered open port 6697/tcp on 172.16.22.16                                  
+Discovered open port 8787/tcp on 172.16.22.16                                  
+Discovered open port 25/tcp on 172.16.22.16                                    
+Discovered open port 139/tcp on 172.16.22.16                                   
+Discovered open port 3306/tcp on 172.16.22.16                                  
+Discovered open port 6000/tcp on 172.16.22.16                                  
+Discovered open port 445/tcp on 172.16.22.16                                   
+Discovered open port 5900/tcp on 172.16.22.16                                  
+Discovered open port 2121/tcp on 172.16.22.16                                  
+Discovered open port 35585/tcp on 172.16.22.16                                 
+Discovered open port 3632/tcp on 172.16.22.16                                  
+Discovered open port 111/tcp on 172.16.22.16                                   
+Discovered open port 53/tcp on 172.16.22.16                                    
+Discovered open port 1099/tcp on 172.16.22.16 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Metagoofil: 4/28/18
+bash: metagoofil: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Miranda: 4/28/18
+*Universal Plug-N-Play client application designed to discover, query and interact with UPNP devices, particularly Internet Gateway Devices (aka, routers).
+
+	Command: miranda -i eth0 -v
+		*opens shell*
+		msearch
+
+Output:
+Entering discovery mode for 'upnp:rootdevice', Ctl+C to stop...
+
+****************************************************************
+SSDP notification message from 172.16.22.83:8008
+XML file is located at http://172.16.22.83:8008/ssdp/device-desc.xml
+Device is running UPnP/1.0 DLNADOC/1.50 AirReceiver/1.0.3.0
+****************************************************************
+
+****************************************************************
+SSDP notification message from 172.16.22.1:2189
+XML file is located at http://172.16.22.1:2189/rootDesc.xml
+Device is running FreeBSD/10.3-RELEASE-p2 UPnP/1.1 MiniUPnPd/1.9
+****************************************************************
+
+****************************************************************
+SSDP notification message from 172.16.22.83:3500
+XML file is located at http://172.16.22.83:3500/
+Device is running UPnP/1.0 DLNADOC/1.50 AirReceiver/1.0.3.0
+****************************************************************
+
+****************************************************************
+SSDP notification message from 172.16.22.183:50201
+XML file is located at http://172.16.22.183:50201/dial.xml
+Device is running Linux/3.10 UPnP/1.0 Sony-BDP/2.0
+****************************************************************
+
+****************************************************************
+SSDP notification message from 172.16.23.135:2869
+XML file is located at http://172.16.23.135:2869/upnphost/udhisapi.dll?content=uuid:9044d2a5-4171-456b-bc8c-37bd271a124e
+Device is running Microsoft-Windows/10.0 UPnP/1.0 UPnP-Device-Host/1.0
+****************************************************************
+
+****************************************************************
+SSDP notification message from 172.16.23.146:37652
+XML file is located at http://172.16.23.146:37652/upnp/dev/235917c3-cf8e-d687-0000-000042072aef/desc
+Device is running Linux/3.0.31 UPnP/1.0 Cling/2.0
+****************************************************************
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+nbtscan-unixwiz: 4/28/18
+bash: nbtscan-unixwiz: command not found
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Nikto: 4/28/18
+*web server scanner for dangerous programs/files, outdated versions, and configuration issues.
+*Didn't have a web server to test
+	Command: nikto -host 172.16.22.16
+
+Output:
+- Nikto v2.1.6
+-----------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Nmap: 4/28/18
+*network discovery and security auditing
+
+	Command: nmap -v -A -sV 172.16.22.16
+
+Output:
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-04-28 00:18 CDT
+NSE: Loaded 148 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 00:18
+Completed NSE at 00:18, 0.00s elapsed
+Initiating NSE at 00:18
+Completed NSE at 00:18, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 00:18
+Completed Parallel DNS resolution of 1 host. at 00:18, 0.00s elapsed
+Initiating SYN Stealth Scan at 00:18
+Scanning 172.16.22.16 [1000 ports]
+SYN Stealth Scan Timing: About 15.50% done; ETC: 00:22 (0:02:49 remaining)
+SYN Stealth Scan Timing: About 30.30% done; ETC: 00:22 (0:02:20 remaining)
+SYN Stealth Scan Timing: About 45.30% done; ETC: 00:22 (0:01:50 remaining)
+SYN Stealth Scan Timing: About 60.30% done; ETC: 00:22 (0:01:20 remaining)
+SYN Stealth Scan Timing: About 75.30% done; ETC: 00:22 (0:00:50 remaining)
+Completed SYN Stealth Scan at 00:22, 201.25s elapsed (1000 total ports)
+Initiating Service scan at 00:22
+Initiating OS detection (try #1) against 172.16.22.16
+Retrying OS detection (try #2) against 172.16.22.16
+NSE: Script scanning 172.16.22.16.
+Initiating NSE at 00:22
+Completed NSE at 00:22, 0.00s elapsed
+Initiating NSE at 00:22
+Completed NSE at 00:22, 0.00s elapsed
+Nmap scan report for 172.16.22.16
+Host is up.
+All 1000 scanned ports on 172.16.22.16 are filtered
+Too many fingerprints match this host to give specific OS details
+
+NSE: Script Post-scanning.
+Initiating NSE at 00:22
+Completed NSE at 00:22, 0.00s elapsed
+Initiating NSE at 00:22
+Completed NSE at 00:22, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 212.25 seconds
+           Raw packets sent: 2048 (94.672KB) | Rcvd: 0 (0B)
+
+
+	Command 2: nping --tcp -p 22 --flags syn --ttl 2 172.16.22.16
+Output:
+Starting Nping 0.7.70 ( https://nmap.org/nping ) at 2018-04-28 00:19 CDT
+SENT (0.0490s) TCP 172.16.22.98:34918 > 172.16.22.16:22 S ttl=2 id=56331 iplen=40  seq=556976765 win=1480 
+SENT (1.0493s) TCP 172.16.22.98:34918 > 172.16.22.16:22 S ttl=2 id=56331 iplen=40  seq=556976765 win=1480 
+SENT (2.0505s) TCP 172.16.22.98:34918 > 172.16.22.16:22 S ttl=2 id=56331 iplen=40  seq=556976765 win=1480 
+SENT (3.0509s) TCP 172.16.22.98:34918 > 172.16.22.16:22 S ttl=2 id=56331 iplen=40  seq=556976765 win=1480 
+SENT (4.0519s) TCP 172.16.22.98:34918 > 172.16.22.16:22 S ttl=2 id=56331 iplen=40  seq=556976765 win=1480 
+ 
+Max rtt: N/A | Min rtt: N/A | Avg rtt: N/A
+Raw packets sent: 5 (200B) | Rcvd: 0 (0B) | Lost: 5 (100.00%)
+Nping done: 1 IP address pinged in 5.09 seconds
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ntop: 4/28/18
+bash: ntop: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OSRFramework:
+bash: osrfconsole.py: command not found
+usufy.py: command not found
+osrframework_server.py: command not found
+bash: mailfy.py: command not found
+bash: searchfy.py: command not found
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+p0f: 4/28/18
+*sniffer
+
+[+] Closed 1 file descriptor.
+[+] Loaded 322 signatures from '/etc/p0f/p0f.fp'.
+[+] Intercepting traffic on interface 'eth0'.
+[+] Default packet filtering configured [+VLAN].
+[+] Log file '/root/Desktop/p0f.log' opened for writing.
+[+] Entered main event loop.
+
+.-[ 172.16.22.198/60804 -> 172.16.22.16/445 (syn) ]-
+|
+| client   = 172.16.22.198/60804
+| os       = Mac OS X
+| dist     = 0
+| params   = generic fuzzy
+| raw_sig  = 4:64+0:0:1460:65535,5:mss,nop,ws,nop,nop,ts,sok,eol+1:df,ecn:0
+|
+`----
+
+.-[ 172.16.22.198/60804 -> 172.16.22.16/445 (mtu) ]-
+|
+| client   = 172.16.22.198/60804
+| link     = Ethernet or modem
+| raw_mtu  = 1500
+
+.....
+....
+
+^C[!] WARNING: User-initiated shutdown.
+
+All done. Processed 9305 packets.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Parsero: 4/28/18
+bash: parsero: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Recon-ng: 4/28/18
+*Web Reconnaissance framework (like metasploit, opens a seperate shell)
+*creates a hidden directory in cwd, ".recon-ng"
+
+
+*wasn't familiar with the modules so didn't use
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SET: 4/28/18
+*Social-Engineer Toolkit
+
+
+	Command: setoolkit
+
+*easier framework than metasploitable, just enter number matching the module
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SMBMap: 4/28/18
+*enumerate samba share drives across an entire domain
+*only for windows
+*didn't have a windows to practice on but tried it on metasploitable
+
+	Command: smbmap -u msfadmin -p msfadmin -H 172.16.22.16
+
+Ouput:
+[+] Finding open SMB ports....
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+smtp-user-enum: 4/28/18
+*enumerating OS-level user accounts on Solaris via the SMTP service (sendmail
+
+
+	Command: smtp-user-enum -u msfadmin -t 172.16.22.16
+
+output:
+Starting smtp-user-enum v1.2 ( http://pentestmonkey.net/tools/smtp-user-enum )
+
+ ----------------------------------------------------------
+|                   Scan Information                       |
+ ----------------------------------------------------------
+
+Mode ..................... VRFY
+Worker Processes ......... 5
+Target count ............. 1
+Username count ........... 1
+Target TCP port .......... 25
+Query timeout ............ 5 secs
+Target domain ............ 
+
+######## Scan started at Sat Apr 28 00:59:51 2018 #########
+######## Scan completed at Sat Apr 28 00:59:56 2018 #########
+0 results.
+
+1 queries in 5 seconds (0.2 queries / sec)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+snmp-check: 4/28/18
+*enumerate the SNMP devices
+
+	Command: snmp-check 172.16.22.16
+Output:
+snmp-check v1.9 - SNMP enumerator
+Copyright (c) 2005-2015 by Matteo Cantoni (www.nothink.org)
+
+[+] Try to connect to 172.16.22.16:161 using SNMPv1 and community 'public'
+
+[!] 172.16.22.16:161 SNMP request timeout
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SPARTA: 4/28/18
+*GUI
+*scanning and enumeration
+*scanned for at least 30 minutes and didn't finish using nmap. Had to kill the scanning process at stage 4 since there was no progress and I  wanted to sleep
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sslcaudit: 4/28/18
+*automate testing SSL/TLS clients for resistance against MITM attacks
+*outputs a folder to current directory
+
+	Command:
+Output:
+# filebag location: sslcaudit.0
+
+*look in directory, outputs a folder
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SSLsplit: 4/28/18
+*for man-in-the-middle attacks against SSL/TLS encrypted network connections
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sslstrip: 4/28/18
+*hijacks HTTP traffic on a network, watch for HTTPS links and redirects, and then map those links into look-alike HTTP links or homograph-similar HTTPS links
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SSLyze: 4/28/18
+*analyze the SSL configuration of a server by connecting to it
+
+	Command: sslyze --regular google.com
+Output:
+
+ AVAILABLE PLUGINS
+ -----------------
+
+  PluginSessionRenegotiation
+  PluginChromeSha1Deprecation
+  PluginHSTS
+  PluginOpenSSLCipherSuites
+  PluginCompression
+  PluginHeartbleed
+  PluginSessionResumption
+  PluginCertInfo
+
+
+
+ CHECKING HOST(S) AVAILABILITY
+ -----------------------------
+
+   google.com:443                      => 172.217.14.174:443
+
+
+
+ SCAN RESULTS FOR GOOGLE.COM:443 - 172.217.14.174:443
+ ----------------------------------------------------
+
+  * Deflate Compression:
+      OK - Compression disabled          
+
+  * Session Renegotiation:
+      Client-initiated Renegotiations:   OK - Rejected
+      Secure Renegotiation:              OK - Supported
+
+  * Session Resumption:
+      With Session IDs:                  OK - Supported (5 successful, 0 failed, 0 errors, 5 total attempts).
+      With TLS Session Tickets:          OK - Supported
+
+  * OpenSSL Heartbleed:
+      OK - Not vulnerable to Heartbleed  
+
+  * SSLV2 Cipher Suites:
+      Server rejected all cipher suites.
+
+  * Certificate - Content:
+      SHA1 Fingerprint:                  cc3ef704568a66f601a6d6db99606229143d39d2
+      Common Name:                       *.google.com
+      Issuer:                            Google Internet Authority G2
+      Serial Number:                     086FE87D8B761B8F
+      Not Before:                        Apr 10 18:58:05 2018 GMT
+      Not After:                         Jul  3 18:33:00 2018 GMT
+      Signature Algorithm:               sha256WithRSAEncryption
+      Public Key Algorithm:              rsaEncryption
+      Key Size:                          2048 bit
+      Exponent:                          65537 (0x10001)
+      X509v3 Subject Alternative Name:   {'DNS': ['*.google.com', '*.android.com', '*.appengine.google.com', '*.cloud.google.com', '*.db833953.google.cn', '*.g.co', '*.gcp.gvt2.com', '*.google-analytics.com', '*.google.ca', '*.google.cl', '*.google.co.in', '*.google.co.jp', '*.google.co.uk', '*.google.com.ar', '*.google.com.au', '*.google.com.br', '*.google.com.co', '*.google.com.mx', '*.google.com.tr', '*.google.com.vn', '*.google.de', '*.google.es', '*.google.fr', '*.google.hu', '*.google.it', '*.google.nl', '*.google.pl', '*.google.pt', '*.googleadapis.com', '*.googleapis.cn', '*.googlecommerce.com', '*.googlevideo.com', '*.gstatic.cn', '*.gstatic.com', '*.gvt1.com', '*.gvt2.com', '*.metric.gstatic.com', '*.urchin.com', '*.url.google.com', '*.youtube-nocookie.com', '*.youtube.com', '*.youtubeeducation.com', '*.yt.be', '*.ytimg.com', 'android.clients.google.com', 'android.com', 'developer.android.google.cn', 'developers.android.google.cn', 'g.co', 'goo.gl', 'google-analytics.com', 'google.com', 'googlecommerce.com', 'source.android.google.cn', 'urchin.com', 'www.goo.gl', 'youtu.be', 'youtube.com', 'youtubeeducation.com', 'yt.be']}
+
+  * Certificate - Trust:
+      Hostname Validation:               OK - Subject Alternative Name matches
+      Google CA Store (09/2015):         OK - Certificate is trusted
+      Java 6 CA Store (Update 65):       OK - Certificate is trusted
+      Microsoft CA Store (09/2015):      OK - Certificate is trusted
+      Mozilla NSS CA Store (09/2015):    OK - Certificate is trusted
+      Apple CA Store (OS X 10.10.5):     OK - Certificate is trusted
+      Certificate Chain Received:        ['*.google.com', 'Google Internet Authority G2', 'GeoTrust Global CA']
+
+  * Certificate - OCSP Stapling:
+      NOT SUPPORTED - Server did not send back an OCSP response.
+
+  * TLSV1_2 Cipher Suites:
+      Preferred:                       
+                 ECDHE-RSA-AES128-GCM-SHA256   ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+      Accepted:                        
+                 ECDHE-RSA-AES256-SHA          ECDH-256 bits  256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 ECDHE-RSA-AES256-GCM-SHA384   ECDH-256 bits  256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES256-SHA                    -              256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES256-GCM-SHA384             -              256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 ECDHE-RSA-AES128-SHA          ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 ECDHE-RSA-AES128-GCM-SHA256   ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES128-SHA                    -              128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES128-GCM-SHA256             -              128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 DES-CBC3-SHA                  -              112 bits      HTTP 301 Moved Permanently - https://www.google.com/
+
+  * TLSV1_1 Cipher Suites:
+      Preferred:                       
+                 ECDHE-RSA-AES128-SHA          ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+      Accepted:                        
+                 ECDHE-RSA-AES256-SHA          ECDH-256 bits  256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES256-SHA                    -              256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 ECDHE-RSA-AES128-SHA          ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES128-SHA                    -              128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 DES-CBC3-SHA                  -              112 bits      HTTP 301 Moved Permanently - https://www.google.com/
+
+  * TLSV1 Cipher Suites:
+      Preferred:                       
+                 ECDHE-RSA-AES128-SHA          ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+      Accepted:                        
+                 ECDHE-RSA-AES256-SHA          ECDH-256 bits  256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES256-SHA                    -              256 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 ECDHE-RSA-AES128-SHA          ECDH-256 bits  128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 AES128-SHA                    -              128 bits      HTTP 301 Moved Permanently - https://www.google.com/
+                 DES-CBC3-SHA                  -              112 bits      HTTP 301 Moved Permanently - https://www.google.com/
+
+  * SSLV3 Cipher Suites:
+      Server rejected all cipher suites.
+
+
+
+ SCAN COMPLETED IN 1.23 S
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Sublist3r: 4/28/18
+bash: sublist3r: command not found
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+THC-IPV6: 4/28/18
+*not installed. It's a suite of tools but none of the ones I tested were present and when that occurs, it usually means none of the tools of that suite are installed.
+*A complete tool set to attack the inherent protocol weaknesses of IPV6 and ICMP6, and includes an easy to use packet factory library
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+theHarvester: 4/28/18
+*gathering e-mail accounts and subdomain names from public sources
+
+	Command: theharvestor -d kali.org -l 500 -b google.com
+Output:
+[-] Starting harvesting process for domain: kali.org
+
+[-] Searching in Google:
+	Searching 0 results...
+	Searching 100 results...
+	Searching 200 results...
+	Searching 300 results...
+	Searching 400 results...
+	Searching 500 results...
+
+ Harvesting results
+
+
+[+] Emails found:
+------------------
+devel@kali.org
+dookie@kali.org
+kali-development@list.kali.org
+steev@kali.org
+info@kali.org
+ 
+[+] Hosts found in search engines:
+------------------------------------
+
+Total hosts: 34
+
+[-] Resolving hostnames IPs... 
+ 
+.docs.kali.org : empty
+.kali.org : empty
+253Dhebe.kali.org : empty
+Cdimage.kali.org : 192.99.200.113
+Id.docs.kali.org : 192.124.249.10
+Tools.kali.org : 192.124.249.6
+aphrodite.kali.org : 192.99.35.23
+apollo.kali.org : 23.239.31.82
+archive-10.kali.org : 167.114.101.149
+archive-3.kali.org : 85.25.43.27
+archive-4.kali.org : 149.202.201.51
+archive-5.kali.org : 192.99.150.28
+archive-7.kali.org : 209.126.116.149
+archive.kali.org : 192.99.45.140
+archivo.kali.org : empty
+bugs.kali.org : 192.124.249.169
+cdimage.kali.org : 192.99.200.113
+clotho.kali.org : 167.114.101.149
+docs.kali.org : 192.124.249.10
+domain-images.kali.org : empty
+downloads.kali.org : 149.56.27.8
+forums.kali.org : 192.124.249.12
+git.kali.org : 67.23.72.103
+hebe.kali.org : 192.99.200.113
+hecate.kali.org : 149.202.201.51
+hestia.kali.org : 192.99.150.26
+http.kali.org : 192.99.200.113
+images.kali.org : 149.56.27.8
+list.kali.org : empty
+old.kali.org : 167.114.101.127
+repo.kali.org : 144.217.77.182
+security.kali.org : 192.99.200.113
+tools.kali.org : 192.124.249.6
+www.kali.org : 192.124.249.10
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TLSSLed: 4/28/18
+*evaluate the security of a target SSL/TLS (HTTPS) web server implementation
+*don't have a web server but tried on metasplotiable
+*outputs a folder to current directory
+
+	Command: tlssled 172.16.22.16 443
+Output:
+------------------------------------------------------
+ TLSSLed - (1.3) based on sslscan and openssl
+                 by Raul Siles (www.taddong.com)
+------------------------------------------------------
+    openssl version: OpenSSL 1.1.0h  27 Mar 2018
+    
+------------------------------------------------------
+    Date: 20180428-012431
+------------------------------------------------------
+
+[*] Analyzing SSL/TLS on 172.16.22.16:443 ...
+    [.] Output directory: TLSSLed_1.3_172.16.22.16_443_20180428-012431 ...
+
+[*] Checking if the target service speaks SSL/TLS...
+
+[!] ERROR: The target service 172.16.22.16:443 does not seem
+           to speak SSL/TLS or it is not reachable!!
+
+[.] Review the files within the output directory for more info.
+    [.] Output directory: TLSSLed_1.3_172.16.22.16_443_20180428-012431 ...
+
+
+**** Look in directoory
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+twofi: 4/28/18
+*use Twitter to help generate those lists based on searches for keywords related to the list that is being cracked
+*need a twitter developing account
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Unicornscan: 4/28/18
+
+*information gathering and correlation engine
+
+	Command: unicornscan -mTsf -Iv -r 1000 172.16.22.16:a
+Output:
+adding 172.16.22.16/32 mode `TCPscan' ports `a' pps 1000
+using interface(s) lo
+scaning 1.00e+00 total hosts with 6.55e+04 total packets, should take a little longer than 1 Minutes, 12 Seconds
+sender statistics 997.8 pps with 65536 packets sent total
+listener statistics 0 packets recieved 0 packets droped and 0 interface drops
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+URLCrazy: 4/28/18
+*Generate and test domain typos and variations to detect and perform typo squatting, URL hijacking, phishing, and corporate espionage
+
+/usr/share/urlcrazy/tld.rb:81: warning: key "2nd_level_registration" is duplicated and overwritten on line 81
+/usr/share/urlcrazy/tld.rb:89: warning: key "2nd_level_registration" is duplicated and overwritten on line 89
+/usr/share/urlcrazy/tld.rb:91: warning: key "2nd_level_registration" is duplicated and overwritten on line 91
+URLCrazy Domain Report
+Domain    : google.com
+Keyboard  : qwerty
+At        : 2018-04-28 01:35:07 -0500
+
+# Please wait. 87 hostnames to process
+
+Typo Type                     Typo           CC-A  Extn  
+---------------------------------------------------------
+Character Omission            gogle.com      ?     com   
+Character Omission            googe.com      ?     com   
+Character Omission            googl.com      ?     com   
+Character Omission            google.cm      ?     cm    
+Character Omission            goole.com      ?     com   
+Character Repeat              ggoogle.com    ?     com   
+Character Repeat              googgle.com    ?     com   
+Character Repeat              googlee.com    ?     com   
+Character Repeat              googlle.com    ?     com   
+Character Repeat              gooogle.com    ?     com   
+Character Swap                gogole.com     ?     com   
+Character Swap                googel.com     ?     com   
+Character Swap                goolge.com     ?     com   
+Character Swap                ogogle.com     ?     com   
+Character Replacement         foogle.com     ?     com   
+Character Replacement         giogle.com     ?     com   
+Character Replacement         goigle.com     ?     com   
+Character Replacement         goofle.com     ?     com   
+Character Replacement         googke.com     ?     com   
+Character Replacement         googlr.com     ?     com   
+Character Replacement         googlw.com     ?     com   
+Character Replacement         goohle.com     ?     com   
+Character Replacement         gopgle.com     ?     com   
+Character Replacement         gpogle.com     ?     com   
+Character Replacement         hoogle.com     ?     com   
+Double Character Replacement  giigle.com     ?     com   
+Double Character Replacement  gppgle.com     ?     com   
+Character Insertion           gfoogle.com    ?     com   
+Character Insertion           ghoogle.com    ?     com   
+Character Insertion           goiogle.com    ?     com   
+Character Insertion           googfle.com    ?     com   
+Character Insertion           googhle.com    ?     com   
+Character Insertion           googler.com    ?     com   
+Character Insertion           googlew.com    ?     com   
+Character Insertion           googlke.com    ?     com   
+Character Insertion           gooigle.com    ?     com   
+Character Insertion           goopgle.com    ?     com   
+Character Insertion           gopogle.com    ?     com   
+Missing Dot                   googlecom.com  ?     com   
+Missing Dot                   wwwgoogle.com  ?     com   
+Singular or Pluralise         googles.com    ?     com   
+Vowel Swap                    googla.com     ?     com   
+Vowel Swap                    googli.com     ?     com   
+Vowel Swap                    googlo.com     ?     com   
+Vowel Swap                    googlu.com     ?     com   
+Bit Flipping                  coogle.com     ?     com   
+Bit Flipping                  eoogle.com     ?     com   
+Bit Flipping                  ggogle.com     ?     com   
+Bit Flipping                  gkogle.com     ?     com   
+Bit Flipping                  gmogle.com     ?     com   
+Bit Flipping                  gnogle.com     ?     com   
+Bit Flipping                  goggle.com     ?     com   
+Bit Flipping                  gokgle.com     ?     com   
+Bit Flipping                  gomgle.com     ?     com   
+Bit Flipping                  gongle.com     ?     com   
+Bit Flipping                  goocle.com     ?     com   
+Bit Flipping                  gooele.com     ?     com   
+Bit Flipping                  googde.com     ?     com   
+Bit Flipping                  googhe.com     ?     com   
+Bit Flipping                  googld.com     ?     com   
+Bit Flipping                  googlg.com     ?     com   
+Bit Flipping                  googlm.com     ?     com   
+Bit Flipping                  googme.com     ?     com   
+Bit Flipping                  googne.com     ?     com   
+Bit Flipping                  gooole.com     ?     com   
+Bit Flipping                  goowle.com     ?     com   
+Bit Flipping                  ooogle.com     ?     com   
+Bit Flipping                  woogle.com     ?     com   
+Homoglyphs                    g00gle.com     ?     com   
+Homoglyphs                    g0ogle.com     ?     com   
+Homoglyphs                    go0gle.com     ?     com   
+Homoglyphs                    goog1e.com     ?     com   
+Wrong TLD                     google.ca      ?     ca    
+Wrong TLD                     google.ch      ?     ch    
+Wrong TLD                     google.de      ?     de    
+Wrong TLD                     google.edu     ?     edu   
+Wrong TLD                     google.es      ?     es    
+Wrong TLD                     google.fr      ?     fr    
+Wrong TLD                     google.it      ?     it    
+Wrong TLD                     google.jp      ?     jp    
+Wrong TLD                     google.net     ?     net   
+Wrong TLD                     google.nl      ?     nl    
+Wrong TLD                     google.no      ?     no    
+Wrong TLD                     google.org     ?     org   
+Wrong TLD                     google.ru      ?     ru    
+Wrong TLD                     google.se      ?     se    
+Wrong TLD                     google.us      ?     us   
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Wireshark: 4/28/18
+
+*network protocol analyzer
+
+	Command: tshark -f "tcp port 80" -i eth0
+Output:
+Running as user "root" and group "root". This could be dangerous.
+tshark: Lua: Error during loading:
+ [string "/usr/share/wireshark/init.lua"]:44: dofile has been disabled due to running Wireshark as superuser. See https://wiki.wireshark.org/CaptureSetup/CapturePrivileges for help in running Wireshark as an unprivileged user.
+Capturing on 'eth0'
+    1 0.000000000 172.16.22.98 → 104.18.55.46 TCP 74 49336 80   49336 → 80 [SYN] Seq=0 Win=29200 Len=0 MSS=1460 SACK_PERM=1 TSval=4000218276 TSecr=0 WS=128
+    2 0.009331730 104.18.55.46 → 172.16.22.98 TCP 66 80 49336   80 → 49336 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460 SACK_PERM=1 WS=1024
+    3 0.009402308 172.16.22.98 → 104.18.55.46 TCP 54 49336 80   49336 → 80 [ACK] Seq=1 Ack=1 Win=29312 Len=0
+    4 0.009763328 172.16.22.98 → 104.18.55.46 HTTP 743 49336 80   GET /genre/Ecchi/?f=1&o=1&sortby=update_date&e= HTTP/1.1 
+    5 0.019308672 104.18.55.46 → 172.16.22.98 TCP 60 80 49336   80 → 49336 [ACK] Seq=1 Ack=690 Win=30720 Len=0
+    6 0.021441621 104.18.55.46 → 172.16.22.98 TCP 9063 80 49336   HTTP/1.1 503 Service Temporarily Unavailable  [TCP segment of a reassembled PDU]
+    7 0.021503702 172.16.22.98 → 104.18.55.46 TCP 54 49336 80   49336 → 80 [ACK] Seq=690 Ack=9010 Win=47232 Len=0
+    8 0.021519240 104.18.55.46 → 172.16.22.98 HTTP 60 80 49336   HTTP/1.1 503 Service Temporarily Unavailable  (text/html)
+    9 0.021527397 172.16.22.98 → 104.18.55.46 TCP 54 49336 80   49336 → 80 [ACK] Seq=690 Ack=9015 Win=47232 Len=0
+   10 0.022264766 104.18.55.46 → 172.16.22.98 TCP 60 80 49336   80 → 49336 [FIN, ACK] Seq=9015 Ack=690 Win=30720 Len=0
+   11 0.022425420 172.16.22.98 → 104.18.55.46 TCP 54 49336 80   49336 → 80 [FIN, ACK] Seq=690 Ack=9016 Win=47232 Len=0
+   12 0.031920392 104.18.55.46 → 172.16.22.98 TCP 60 80 49336   80 → 49336 [ACK] Seq=9016 Ack=691 Win=30720 Len=0
+   13 4.268460918 172.16.22.98 → 104.18.55.46 TCP 74 49338 80   49338 → 80 [SYN] Seq=0 Win=29200 Len=0 MSS=1460 SACK_PERM=1 TSval=4000222544 TSecr=0 WS=128
+
+.....
+....
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+WOL-E: 4/28/18
+*suite of tools for the Wake on LAN feature of network attached computers, this is now enabled by default on many Apple computers
+
+*didn't scan my network since I'm at an apartment complex
+
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Xplico: 4/28/18
+bash: xplico: command not found
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
