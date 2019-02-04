@@ -1,0 +1,38 @@
+Source: https://haydenjames.io/linux-securely-copy-files-using-scp/
+
+Secure Copy (SCP) 
+Last updated: 1/25/19
+
+Scenario #1: 
+- From Server A (win) to Server B (linux). Server B requires ssh key
+
+# scp -i C:\path\to\ssh\key C:\path\to\file\to\transfer <username of Server B>@<IP address of server B>:/path/to/destination/on/ServerB
+
+Scenario #2
+- Copy file from a remote host to local host SCP example:
+
+$ scp username@from_host:file.txt /local/directory/
+
+ 
+Scenario #3
+- Copy file from local host to a remote host SCP example:
+
+$ scp file.txt username@to_host:/remote/directory/
+
+ 
+ Scenario #4
+- Copy directory from a remote host to local host SCP example:
+
+$ scp -r username@from_host:/remote/directory/  /local/directory/
+
+ 
+Scenario #5
+- Copy directory from local host to a remote hos SCP example:
+
+$ scp -r /local/directory/ username@to_host:/remote/directory/
+
+ 
+Scenario #6
+- Copy file from remote host to remote host SCP example:
+
+$ scp username@from_host:/remote/directory/file.txt username@to_host:/remote/directory/
