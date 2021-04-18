@@ -1,0 +1,51 @@
+Panic Soft
+#NoFreeOnExit TRUE
+
+define ROOT     C:\Program Files (x86)\nxlog
+define CERTDIR  %ROOT%\cert
+define CONFDIR  %ROOT%\conf
+define LOGDIR   %ROOT%\data
+define LOGFILE  %LOGDIR%\nxlog.log
+define MonitoredEventIds    1102, 4616, 4618, 4621, 4624, 4625, 4634, 4648, 4649, 4657, \
+                            4697, 4698, 4699, 4700, 4701, 4719, 4720, 4722, 4723, 4724, \
+                            4725, 4728, 4732, 4735, 4737, 4738, 4740, 4755, 4756, 4765, \
+                            4766, 4767, 4772, 4777, 4782, 4794, 4896, 4897, 4946, 4947, \
+                            4950, 4954, 4964, 5025, 5030, 5031, 5035, 5037, 5124, 5152, \
+                            5153, 5155, 5157, 5447, 6273, 6276, 6277, 6279
+                            
+LogFile %LOGFILE%
+
+Moduledir %ROOT%\modules
+CacheDir  %ROOT%\data
+Pidfile   %ROOT%\data\nxlog.pid
+SpoolDir  %ROOT%\data
+
+<Extension gelf>
+	Module xm_gelf
+</Extension>
+
+<Input eventlog>
+    Module  im_msvistalog
+    <QueryXML>
+        <QueryList>
+            <Query Id='0'>
+                <Select Path='Security'>*</Select>
+            </Query>
+        </QueryList>
+    </QueryXML>
+    <Exec>
+        if $EventID NOT IN (%MonitoredEventIds%) drop();
+        if $SubjectUserSid IN ("/^S-1-5-21") drop();
+    </Exec>
+</Input>
+
+<Output graylog>
+	Module om_udp
+	Host 192.168.2.131
+	Port 1514
+	OutputType GELF_UDP
+</Output>
+
+<Route toGraylog>
+	Path eventlog => graylog
+</Route>
